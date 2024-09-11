@@ -1,0 +1,7 @@
+name: planton-cloud-aws-module-test
+runtime: go
+description: module to deploy aws rds
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: go
