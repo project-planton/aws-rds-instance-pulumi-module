@@ -12,7 +12,36 @@ import (
 )
 
 func rdsInstance(ctx *pulumi.Context, locals *Locals, awsProvider *aws.Provider, createdSecurityGroup *ec2.SecurityGroup) (*rds.Instance, error) {
-	rdsInstanceArgs := &rds.InstanceArgs{}
+	rdsInstanceArgs := &rds.InstanceArgs{
+		Identifier:                       pulumi.String(locals.AwsRds.Metadata.Id),
+		DbName:                           pulumi.String(locals.AwsRds.Spec.RdsInstance.DbName),
+		Port:                             pulumi.Int(locals.AwsRds.Spec.RdsInstance.Port),
+		CharacterSetName:                 pulumi.String(locals.AwsRds.Spec.RdsInstance.CharacterSetName),
+		InstanceClass:                    pulumi.String(locals.AwsRds.Spec.RdsInstance.InstanceClass),
+		MaxAllocatedStorage:              pulumi.Int(locals.AwsRds.Spec.RdsInstance.MaxAllocatedStorage),
+		StorageEncrypted:                 pulumi.Bool(locals.AwsRds.Spec.RdsInstance.StorageEncrypted),
+		KmsKeyId:                         pulumi.String(locals.AwsRds.Spec.RdsInstance.KmsKeyId),
+		MultiAz:                          pulumi.Bool(locals.AwsRds.Spec.RdsInstance.IsMultiAz),
+		CaCertIdentifier:                 pulumi.String(locals.AwsRds.Spec.RdsInstance.CaCertIdentifier),
+		LicenseModel:                     pulumi.String(locals.AwsRds.Spec.RdsInstance.LicenseModel),
+		StorageType:                      pulumi.String(locals.AwsRds.Spec.RdsInstance.StorageType),
+		Iops:                             pulumi.Int(locals.AwsRds.Spec.RdsInstance.Iops),
+		PubliclyAccessible:               pulumi.Bool(locals.AwsRds.Spec.RdsInstance.IsPubliclyAccessible),
+		SnapshotIdentifier:               pulumi.String(locals.AwsRds.Spec.RdsInstance.SnapshotIdentifier),
+		AllowMajorVersionUpgrade:         pulumi.Bool(locals.AwsRds.Spec.RdsInstance.AllowMajorVersionUpgrade),
+		AutoMinorVersionUpgrade:          pulumi.Bool(locals.AwsRds.Spec.RdsInstance.AutoMinorVersionUpgrade),
+		ApplyImmediately:                 pulumi.Bool(locals.AwsRds.Spec.RdsInstance.ApplyImmediately),
+		MaintenanceWindow:                pulumi.String(locals.AwsRds.Spec.RdsInstance.MaintenanceWindow),
+		CopyTagsToSnapshot:               pulumi.Bool(locals.AwsRds.Spec.RdsInstance.CopyTagsToSnapshot),
+		BackupRetentionPeriod:            pulumi.Int(locals.AwsRds.Spec.RdsInstance.BackupRetentionPeriod),
+		BackupWindow:                     pulumi.String(locals.AwsRds.Spec.RdsInstance.BackupWindow),
+		DeletionProtection:               pulumi.Bool(locals.AwsRds.Spec.RdsInstance.DeletionProtection),
+		SkipFinalSnapshot:                pulumi.Bool(locals.AwsRds.Spec.RdsInstance.SkipFinalSnapshot),
+		Timezone:                         pulumi.String(locals.AwsRds.Spec.RdsInstance.Timezone),
+		IamDatabaseAuthenticationEnabled: pulumi.Bool(locals.AwsRds.Spec.RdsInstance.IamDatabaseAuthenticationEnabled),
+		EnabledCloudwatchLogsExports:     pulumi.ToStringArray(locals.AwsRds.Spec.RdsInstance.EnabledCloudwatchLogsExports),
+		Tags:                             pulumi.ToStringMap(locals.Labels),
+	}
 
 	if len(locals.AwsRds.Spec.RdsInstance.SubnetIds) > 0 && locals.AwsRds.Spec.RdsInstance.DbSubnetGroupName == "" {
 		createdSubnetGroup, err := subnetGroup(ctx, locals, awsProvider)
@@ -112,35 +141,7 @@ func rdsInstance(ctx *pulumi.Context, locals *Locals, awsProvider *aws.Provider,
 	vpcSecurityGroupIds := pulumi.ToStringArray(locals.AwsRds.Spec.RdsInstance.AssociateSecurityGroupIds)
 	vpcSecurityGroupIds = append(vpcSecurityGroupIds, createdSecurityGroup.ID())
 
-	rdsInstanceArgs.Identifier = pulumi.String(locals.AwsRds.Metadata.Id)
-	rdsInstanceArgs.DbName = pulumi.String(locals.AwsRds.Spec.RdsInstance.DbName)
-	rdsInstanceArgs.Port = pulumi.Int(locals.AwsRds.Spec.RdsInstance.Port)
-	rdsInstanceArgs.CharacterSetName = pulumi.String(locals.AwsRds.Spec.RdsInstance.CharacterSetName)
-	rdsInstanceArgs.InstanceClass = pulumi.String(locals.AwsRds.Spec.RdsInstance.InstanceClass)
-	rdsInstanceArgs.MaxAllocatedStorage = pulumi.Int(locals.AwsRds.Spec.RdsInstance.MaxAllocatedStorage)
-	rdsInstanceArgs.StorageEncrypted = pulumi.Bool(locals.AwsRds.Spec.RdsInstance.StorageEncrypted)
-	rdsInstanceArgs.KmsKeyId = pulumi.String(locals.AwsRds.Spec.RdsInstance.KmsKeyId)
 	rdsInstanceArgs.VpcSecurityGroupIds = vpcSecurityGroupIds
-	rdsInstanceArgs.MultiAz = pulumi.Bool(locals.AwsRds.Spec.RdsInstance.IsMultiAz)
-	rdsInstanceArgs.CaCertIdentifier = pulumi.String(locals.AwsRds.Spec.RdsInstance.CaCertIdentifier)
-	rdsInstanceArgs.LicenseModel = pulumi.String(locals.AwsRds.Spec.RdsInstance.LicenseModel)
-	rdsInstanceArgs.StorageType = pulumi.String(locals.AwsRds.Spec.RdsInstance.StorageType)
-	rdsInstanceArgs.Iops = pulumi.Int(locals.AwsRds.Spec.RdsInstance.Iops)
-	rdsInstanceArgs.PubliclyAccessible = pulumi.Bool(locals.AwsRds.Spec.RdsInstance.IsPubliclyAccessible)
-	rdsInstanceArgs.SnapshotIdentifier = pulumi.String(locals.AwsRds.Spec.RdsInstance.SnapshotIdentifier)
-	rdsInstanceArgs.AllowMajorVersionUpgrade = pulumi.Bool(locals.AwsRds.Spec.RdsInstance.AllowMajorVersionUpgrade)
-	rdsInstanceArgs.AutoMinorVersionUpgrade = pulumi.Bool(locals.AwsRds.Spec.RdsInstance.AutoMinorVersionUpgrade)
-	rdsInstanceArgs.ApplyImmediately = pulumi.Bool(locals.AwsRds.Spec.RdsInstance.ApplyImmediately)
-	rdsInstanceArgs.MaintenanceWindow = pulumi.String(locals.AwsRds.Spec.RdsInstance.MaintenanceWindow)
-	rdsInstanceArgs.CopyTagsToSnapshot = pulumi.Bool(locals.AwsRds.Spec.RdsInstance.CopyTagsToSnapshot)
-	rdsInstanceArgs.BackupRetentionPeriod = pulumi.Int(locals.AwsRds.Spec.RdsInstance.BackupRetentionPeriod)
-	rdsInstanceArgs.BackupWindow = pulumi.String(locals.AwsRds.Spec.RdsInstance.BackupWindow)
-	rdsInstanceArgs.DeletionProtection = pulumi.Bool(locals.AwsRds.Spec.RdsInstance.DeletionProtection)
-	rdsInstanceArgs.SkipFinalSnapshot = pulumi.Bool(locals.AwsRds.Spec.RdsInstance.SkipFinalSnapshot)
-	rdsInstanceArgs.Timezone = pulumi.String(locals.AwsRds.Spec.RdsInstance.Timezone)
-	rdsInstanceArgs.IamDatabaseAuthenticationEnabled = pulumi.Bool(locals.AwsRds.Spec.RdsInstance.IamDatabaseAuthenticationEnabled)
-	rdsInstanceArgs.EnabledCloudwatchLogsExports = pulumi.ToStringArray(locals.AwsRds.Spec.RdsInstance.EnabledCloudwatchLogsExports)
-	rdsInstanceArgs.Tags = pulumi.ToStringMap(locals.Labels)
 
 	// Create RDS Instance
 	rdsInstance, err := rds.NewInstance(ctx, "rdsInstance", rdsInstanceArgs,

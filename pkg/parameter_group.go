@@ -22,13 +22,7 @@ func parameterGroup(ctx *pulumi.Context, locals *Locals, awsProvider *aws.Provid
 		NamePrefix: pulumi.Sprintf("%s-", locals.AwsRds.Metadata.Id),
 		Family:     pulumi.String(locals.AwsRds.Spec.RdsInstance.DbParameterGroup),
 		Tags:       pulumi.ToStringMap(locals.Labels),
-		Parameters: rds.ParameterGroupParameterArray{
-			&rds.ParameterGroupParameterArgs{
-				ApplyMethod: pulumi.String("pending-reboot"),
-				Name:        pulumi.String("max_connections"),
-				Value:       pulumi.String("100"),
-			},
-		},
+		Parameters: parameterGroupParameterArray,
 	}
 	// Create RDS Parameter Group
 	rdsParameterGroup, err := rds.NewParameterGroup(ctx, "rds-parameter-group", parameterGroupArgs, pulumi.Provider(awsProvider))
