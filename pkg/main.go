@@ -8,14 +8,10 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-type ResourceStack struct {
-	StackInput *awsrds.AwsRdsStackInput
-}
+func Resources(ctx *pulumi.Context, stackInput *awsrds.AwsRdsStackInput) error {
+	locals := initializeLocals(ctx, stackInput)
 
-func (s *ResourceStack) Resources(ctx *pulumi.Context) error {
-	locals := initializeLocals(ctx, s.StackInput)
-
-	awsCredential := s.StackInput.AwsCredential
+	awsCredential := stackInput.AwsCredential
 
 	//create aws provider using the credentials from the input
 	awsProvider, err := aws.NewProvider(ctx,

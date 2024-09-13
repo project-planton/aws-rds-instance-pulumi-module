@@ -16,10 +16,6 @@ func main() {
 			return errors.Wrap(err, "failed to load stack-input")
 		}
 
-		s := &pkg.ResourceStack{
-			StackInput: stackInput,
-		}
-
-		return s.Resources(ctx)
+		return pkg.Resources(ctx, stackInput)
 	})
 }
