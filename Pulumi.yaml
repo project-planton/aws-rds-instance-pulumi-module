@@ -1,7 +1,3 @@
+#name should be updated based on the choice of 'project' name in pulumi backend
 name: planton-cloud-aws-module-test
 runtime: go
-description: module to deploy aws rds
-config:
-  pulumi:tags:
-    value:
-      pulumi:template: go

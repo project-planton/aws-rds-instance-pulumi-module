@@ -9,14 +9,13 @@ import (
 )
 
 type ResourceStack struct {
-	Input  *awsrds.AwsRdsStackInput
-	Labels map[string]string
+	StackInput *awsrds.AwsRdsStackInput
 }
 
 func (s *ResourceStack) Resources(ctx *pulumi.Context) error {
-	locals := initializeLocals(ctx, s.Input)
+	locals := initializeLocals(ctx, s.StackInput)
 
-	awsCredential := s.Input.AwsCredential
+	awsCredential := s.StackInput.AwsCredential
 
 	//create aws provider using the credentials from the input
 	awsProvider, err := aws.NewProvider(ctx,
