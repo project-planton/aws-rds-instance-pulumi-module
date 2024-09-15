@@ -1,4 +1,4 @@
-module github.com/plantoncloud/aws-rds-pulumi-module
+module github.com/plantoncloud/aws-rds-instance-pulumi-module
 
 go 1.23
 
