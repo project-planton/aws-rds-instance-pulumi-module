@@ -17,9 +17,9 @@ func Resources(ctx *pulumi.Context, stackInput *awsrds.AwsRdsStackInput) error {
 	awsProvider, err := aws.NewProvider(ctx,
 		"classic-provider",
 		&aws.ProviderArgs{
-			AccessKey: pulumi.String(awsCredential.Spec.AccessKeyId),
-			SecretKey: pulumi.String(awsCredential.Spec.SecretAccessKey),
-			Region:    pulumi.String(awsCredential.Spec.Region),
+			AccessKey: pulumi.String(awsCredential.AccessKeyId),
+			SecretKey: pulumi.String(awsCredential.SecretAccessKey),
+			Region:    pulumi.String(awsCredential.Region),
 		})
 	if err != nil {
 		return errors.Wrap(err, "failed to create aws provider")

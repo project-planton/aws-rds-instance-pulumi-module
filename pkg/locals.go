@@ -14,7 +14,7 @@ func initializeLocals(ctx *pulumi.Context, stackInput *awsrds.AwsRdsStackInput) 
 	locals := &Locals{}
 
 	//assign value for the locals variable to make it available across the project
-	locals.AwsRds = stackInput.ApiResource
+	locals.AwsRds = stackInput.Target
 
 	return locals
 }
