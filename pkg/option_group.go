@@ -9,11 +9,11 @@ import (
 )
 
 func optionGroup(ctx *pulumi.Context, locals *Locals, awsProvider *aws.Provider) (*rds.OptionGroup, error) {
-	majorEngineVersion := locals.AwsRds.Spec.RdsInstance.MajorEngineVersion
-	if majorEngineVersion == "" && locals.AwsRds.Spec.RdsInstance.EngineVersion != "" {
-		versionParts := strings.Split(locals.AwsRds.Spec.RdsInstance.EngineVersion, ".")
+	majorEngineVersion := locals.AwsRdsInstance.Spec.MajorEngineVersion
+	if majorEngineVersion == "" && locals.AwsRdsInstance.Spec.EngineVersion != "" {
+		versionParts := strings.Split(locals.AwsRdsInstance.Spec.EngineVersion, ".")
 		// If the engine is "postgres", take the first part, otherwise take the first two parts
-		if locals.AwsRds.Spec.RdsInstance.Engine == "postgres" {
+		if locals.AwsRdsInstance.Spec.Engine == "postgres" {
 			if len(versionParts) >= 1 {
 				majorEngineVersion = versionParts[0]
 			}
@@ -25,7 +25,7 @@ func optionGroup(ctx *pulumi.Context, locals *Locals, awsProvider *aws.Provider)
 	}
 
 	optionArray := rds.OptionGroupOptionArray{}
-	for _, option := range locals.AwsRds.Spec.RdsInstance.Options {
+	for _, option := range locals.AwsRdsInstance.Spec.Options {
 		optionSettingsArray := rds.OptionGroupOptionOptionSettingArray{}
 		for _, optionSetting := range option.OptionSettings {
 			optionSettingsArray = append(optionSettingsArray, &rds.OptionGroupOptionOptionSettingArgs{
@@ -45,8 +45,8 @@ func optionGroup(ctx *pulumi.Context, locals *Locals, awsProvider *aws.Provider)
 
 	// Create RDS Option Group (optional based on the engine type)
 	rdsOptionGroup, err := rds.NewOptionGroup(ctx, "rds-options-group", &rds.OptionGroupArgs{
-		NamePrefix:         pulumi.Sprintf("%s-", locals.AwsRds.Metadata.Id),
-		EngineName:         pulumi.String(locals.AwsRds.Spec.RdsInstance.Engine),
+		NamePrefix:         pulumi.Sprintf("%s-", locals.AwsRdsInstance.Metadata.Id),
+		EngineName:         pulumi.String(locals.AwsRdsInstance.Spec.Engine),
 		MajorEngineVersion: pulumi.String(majorEngineVersion),
 		Tags:               pulumi.ToStringMap(locals.Labels),
 		Options:            optionArray,

@@ -9,7 +9,7 @@ import (
 
 func parameterGroup(ctx *pulumi.Context, locals *Locals, awsProvider *aws.Provider) (*rds.ParameterGroup, error) {
 	var parameterGroupParameterArray = rds.ParameterGroupParameterArray{}
-	for _, parameter := range locals.AwsRds.Spec.RdsInstance.Parameters {
+	for _, parameter := range locals.AwsRdsInstance.Spec.Parameters {
 		parameterGroupParameterArray = append(parameterGroupParameterArray, &rds.ParameterGroupParameterArgs{
 			ApplyMethod: pulumi.String(parameter.ApplyMethod),
 			Name:        pulumi.String(parameter.Name),
@@ -19,8 +19,8 @@ func parameterGroup(ctx *pulumi.Context, locals *Locals, awsProvider *aws.Provid
 	}
 
 	parameterGroupArgs := &rds.ParameterGroupArgs{
-		NamePrefix: pulumi.Sprintf("%s-", locals.AwsRds.Metadata.Id),
-		Family:     pulumi.String(locals.AwsRds.Spec.RdsInstance.DbParameterGroup),
+		NamePrefix: pulumi.Sprintf("%s-", locals.AwsRdsInstance.Metadata.Id),
+		Family:     pulumi.String(locals.AwsRdsInstance.Spec.DbParameterGroup),
 		Tags:       pulumi.ToStringMap(locals.Labels),
 		Parameters: parameterGroupParameterArray,
 	}

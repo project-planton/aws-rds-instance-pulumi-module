@@ -2,15 +2,15 @@ module github.com/plantoncloud/aws-rds-pulumi-module
 
 go 1.23
 
-replace github.com/plantoncloud/planton-cloud-apis => ../../plantoncloud/planton-cloud-apis
+//replace github.com/plantoncloud/planton-cloud-apis => ../../plantoncloud/planton-cloud-apis
 
-replace github.com/plantoncloud/pulumi-module-golang-commons => ../../plantoncloud/pulumi-module-golang-commons
+//replace github.com/plantoncloud/pulumi-module-golang-commons => ../../plantoncloud/pulumi-module-golang-commons
 
 require (
 	github.com/oklog/ulid/v2 v2.1.0
 	github.com/pkg/errors v0.9.1
-	github.com/plantoncloud/planton-cloud-apis v0.1.56
-	github.com/plantoncloud/pulumi-module-golang-commons v0.0.0-20240913203553-f4420f61790e
+	github.com/plantoncloud/planton-cloud-apis v0.1.60
+	github.com/plantoncloud/pulumi-module-golang-commons v0.0.0-20240915015937-988c587e57e4
 	github.com/pulumi/pulumi-aws/sdk/v6 v6.42.1
 	github.com/pulumi/pulumi/sdk/v3 v3.130.0
 )

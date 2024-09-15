@@ -10,21 +10,21 @@ import (
 func securityGroup(ctx *pulumi.Context, locals *Locals, awsProvider *aws.Provider) (*ec2.SecurityGroup, error) {
 
 	defaultSecurityGroup, err := ec2.NewSecurityGroup(ctx, "default", &ec2.SecurityGroupArgs{
-		Name:        pulumi.String(locals.AwsRds.Metadata.Id),
+		Name:        pulumi.String(locals.AwsRdsInstance.Metadata.Id),
 		Description: pulumi.String("Allow inbound traffic from the security groups"),
-		VpcId:       pulumi.String(locals.AwsRds.Spec.RdsInstance.VpcId),
+		VpcId:       pulumi.String(locals.AwsRdsInstance.Spec.VpcId),
 		Tags:        pulumi.ToStringMap(locals.Labels),
 	}, pulumi.Provider(awsProvider))
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to create default security group")
 	}
 
-	for _, securityGroupId := range locals.AwsRds.Spec.RdsInstance.SecurityGroupIds {
+	for _, securityGroupId := range locals.AwsRdsInstance.Spec.SecurityGroupIds {
 		_, err := ec2.NewSecurityGroupRule(ctx, "ingress security groups", &ec2.SecurityGroupRuleArgs{
 			Description:           pulumi.String("Allow inbound traffic from existing Security Groups"),
 			Type:                  pulumi.String("ingress"),
-			FromPort:              pulumi.Int(locals.AwsRds.Spec.RdsInstance.Port),
-			ToPort:                pulumi.Int(locals.AwsRds.Spec.RdsInstance.Port),
+			FromPort:              pulumi.Int(locals.AwsRdsInstance.Spec.Port),
+			ToPort:                pulumi.Int(locals.AwsRdsInstance.Spec.Port),
 			Protocol:              pulumi.String("tcp"),
 			SourceSecurityGroupId: pulumi.String(securityGroupId),
 			SecurityGroupId:       defaultSecurityGroup.ID(),
@@ -34,14 +34,14 @@ func securityGroup(ctx *pulumi.Context, locals *Locals, awsProvider *aws.Provide
 		}
 	}
 
-	if len(locals.AwsRds.Spec.RdsInstance.AllowedCidrBlocks) > 0 {
+	if len(locals.AwsRdsInstance.Spec.AllowedCidrBlocks) > 0 {
 		_, err := ec2.NewSecurityGroupRule(ctx, "ingress cidr blocks", &ec2.SecurityGroupRuleArgs{
 			Description:     pulumi.String("Allow inbound traffic from CIDR blocks"),
 			Type:            pulumi.String("ingress"),
-			FromPort:        pulumi.Int(locals.AwsRds.Spec.RdsInstance.Port),
-			ToPort:          pulumi.Int(locals.AwsRds.Spec.RdsInstance.Port),
+			FromPort:        pulumi.Int(locals.AwsRdsInstance.Spec.Port),
+			ToPort:          pulumi.Int(locals.AwsRdsInstance.Spec.Port),
 			Protocol:        pulumi.String("tcp"),
-			CidrBlocks:      pulumi.ToStringArray(locals.AwsRds.Spec.RdsInstance.AllowedCidrBlocks),
+			CidrBlocks:      pulumi.ToStringArray(locals.AwsRdsInstance.Spec.AllowedCidrBlocks),
 			SecurityGroupId: defaultSecurityGroup.ID(),
 		}, pulumi.Provider(awsProvider), pulumi.Parent(defaultSecurityGroup))
 		if err != nil {

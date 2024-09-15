@@ -1,20 +1,20 @@
 package pkg
 
 import (
-	"github.com/plantoncloud/planton-cloud-apis/zzgo/cloud/planton/apis/code2cloud/v1/aws/awsrds"
+	"github.com/plantoncloud/planton-cloud-apis/zzgo/cloud/planton/apis/code2cloud/v1/aws/awsrdsinstance"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 type Locals struct {
-	AwsRds *awsrds.AwsRds
-	Labels map[string]string
+	AwsRdsInstance *awsrdsinstance.AwsRdsInstance
+	Labels         map[string]string
 }
 
-func initializeLocals(ctx *pulumi.Context, stackInput *awsrds.AwsRdsStackInput) *Locals {
+func initializeLocals(ctx *pulumi.Context, stackInput *awsrdsinstance.AwsRdsInstanceStackInput) *Locals {
 	locals := &Locals{}
 
 	//assign value for the locals variable to make it available across the project
-	locals.AwsRds = stackInput.Target
+	locals.AwsRdsInstance = stackInput.Target
 
 	return locals
 }
