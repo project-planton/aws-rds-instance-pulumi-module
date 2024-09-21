@@ -1,22 +1,22 @@
 module github.com/plantoncloud/aws-rds-instance-pulumi-module
 
-go 1.23
+go 1.23.0
 
-//replace github.com/plantoncloud/planton-cloud-apis => ../../plantoncloud/planton-cloud-apis
+//replace github.com/plantoncloud/planton => ../../plantoncloud/planton
 
 //replace github.com/plantoncloud/pulumi-module-golang-commons => ../../plantoncloud/pulumi-module-golang-commons
 
 require (
 	github.com/oklog/ulid/v2 v2.1.0
 	github.com/pkg/errors v0.9.1
-	github.com/plantoncloud/planton-cloud-apis v0.1.60
-	github.com/plantoncloud/pulumi-module-golang-commons v0.0.0-20240915015937-988c587e57e4
+	github.com/plantoncloud/planton/apis v0.0.0-20240921104154-6949599116e2
+	github.com/plantoncloud/pulumi-module-golang-commons v0.0.0-20240921115810-6eab7ba7d70e
 	github.com/pulumi/pulumi-aws/sdk/v6 v6.42.1
 	github.com/pulumi/pulumi/sdk/v3 v3.130.0
 )
 
 require (
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.34.2-20240717164558-a6c49f84cc0f.2 // indirect
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.34.2-20240920164238-5a7b106cbb87.2 // indirect
 	dario.cat/mergo v1.0.0 // indirect
 	github.com/BurntSushi/toml v1.2.1 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
@@ -61,7 +61,7 @@ require (
 	github.com/muesli/reflow v0.3.0 // indirect
 	github.com/muesli/termenv v0.15.2 // indirect
 	github.com/opentracing/basictracer-go v1.1.0 // indirect
-	github.com/opentracing/opentracing-go v1.2.0 // indirect
+	github.com/opentracing/opentracing-go v1.2.1-0.20220228012449-10b1cf09e00b // indirect
 	github.com/pgavlin/fx v0.1.6 // indirect
 	github.com/pjbgf/sha1cd v0.3.0 // indirect
 	github.com/pkg/term v1.1.0 // indirect
@@ -73,7 +73,7 @@ require (
 	github.com/santhosh-tekuri/jsonschema/v5 v5.0.0 // indirect
 	github.com/sergi/go-diff v1.3.2-0.20230802210424-5b0b94c5c0d3 // indirect
 	github.com/skeema/knownhosts v1.2.2 // indirect
-	github.com/spf13/cobra v1.8.0 // indirect
+	github.com/spf13/cobra v1.8.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/stretchr/objx v0.5.0 // indirect
 	github.com/texttheater/golang-levenshtein v1.0.1 // indirect
@@ -82,15 +82,15 @@ require (
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	github.com/zclconf/go-cty v1.13.2 // indirect
-	go.uber.org/atomic v1.9.0 // indirect
-	golang.org/x/crypto v0.24.0 // indirect
+	go.uber.org/atomic v1.11.0 // indirect
+	golang.org/x/crypto v0.26.0 // indirect
 	golang.org/x/exp v0.0.0-20240604190554-fc45aab8b7f8 // indirect
 	golang.org/x/mod v0.18.0 // indirect
-	golang.org/x/net v0.26.0 // indirect
-	golang.org/x/sync v0.7.0 // indirect
-	golang.org/x/sys v0.21.0 // indirect
-	golang.org/x/term v0.21.0 // indirect
-	golang.org/x/text v0.16.0 // indirect
+	golang.org/x/net v0.27.0 // indirect
+	golang.org/x/sync v0.8.0 // indirect
+	golang.org/x/sys v0.23.0 // indirect
+	golang.org/x/term v0.23.0 // indirect
+	golang.org/x/text v0.17.0 // indirect
 	golang.org/x/tools v0.22.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240604185151-ef581f913117 // indirect
 	google.golang.org/grpc v1.65.0 // indirect
