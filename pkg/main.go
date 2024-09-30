@@ -1,14 +1,14 @@
 package pkg
 
 import (
+	awsrdsinstancev1 "buf.build/gen/go/plantoncloud/project-planton/protocolbuffers/go/project/planton/apis/provider/aws/awsrdsinstance/v1"
 	"github.com/pkg/errors"
 	"github.com/plantoncloud/aws-rds-instance-pulumi-module/pkg/outputs"
-	"github.com/plantoncloud/project-planton/apis/zzgo/cloud/planton/apis/code2cloud/v1/aws/awsrdsinstance"
 	"github.com/pulumi/pulumi-aws/sdk/v6/go/aws"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-func Resources(ctx *pulumi.Context, stackInput *awsrdsinstance.AwsRdsInstanceStackInput) error {
+func Resources(ctx *pulumi.Context, stackInput *awsrdsinstancev1.AwsRdsInstanceStackInput) error {
 	locals := initializeLocals(ctx, stackInput)
 
 	awsCredential := stackInput.AwsCredential
