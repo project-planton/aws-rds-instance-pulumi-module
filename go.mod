@@ -8,7 +8,7 @@ require (
 	buf.build/gen/go/plantoncloud/project-planton/protocolbuffers/go v1.34.2-20241001121943-29543e670f7b.2
 	github.com/oklog/ulid/v2 v2.1.0
 	github.com/pkg/errors v0.9.1
-	github.com/plantoncloud/pulumi-module-golang-commons v0.0.0-20241001155512-a1d72c00e693
+	github.com/plantoncloud/pulumi-module-golang-commons v0.0.0-20241003055957-d4e88d839dcb
 	github.com/pulumi/pulumi-aws/sdk/v6 v6.42.1
 	github.com/pulumi/pulumi/sdk/v3 v3.130.0
 )
