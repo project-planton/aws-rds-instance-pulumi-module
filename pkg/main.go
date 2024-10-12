@@ -1,9 +1,9 @@
 package pkg
 
 import (
-	awsrdsinstancev1 "buf.build/gen/go/plantoncloud/project-planton/protocolbuffers/go/project/planton/provider/aws/awsrdsinstance/v1"
+	awsrdsinstancev1 "buf.build/gen/go/project-planton/apis/protocolbuffers/go/project/planton/provider/aws/awsrdsinstance/v1"
 	"github.com/pkg/errors"
-	"github.com/plantoncloud/aws-rds-instance-pulumi-module/pkg/outputs"
+	"github.com/project-planton/aws-rds-instance-pulumi-module/pkg/outputs"
 	"github.com/pulumi/pulumi-aws/sdk/v6/go/aws"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
