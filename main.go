@@ -1,10 +1,10 @@
 package main
 
 import (
-	awsrdsinstancev1 "buf.build/gen/go/project-planton/apis/protocolbuffers/go/project/planton/provider/aws/awsrdsinstance/v1"
 	"github.com/pkg/errors"
 	"github.com/project-planton/aws-rds-instance-pulumi-module/pkg"
-	"github.com/project-planton/pulumi-module-golang-commons/pkg/stackinput"
+	awsrdsinstancev1 "github.com/project-planton/project-planton/apis/go/project/planton/provider/aws/awsrdsinstance/v1"
+	"github.com/project-planton/project-planton/pkg/pulmod/stackinput"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
