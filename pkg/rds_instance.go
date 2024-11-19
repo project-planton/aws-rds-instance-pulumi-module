@@ -40,6 +40,7 @@ func rdsInstance(ctx *pulumi.Context, locals *Locals, awsProvider *aws.Provider,
 		Timezone:                         pulumi.String(locals.AwsRdsInstance.Spec.Timezone),
 		IamDatabaseAuthenticationEnabled: pulumi.Bool(locals.AwsRdsInstance.Spec.IamDatabaseAuthenticationEnabled),
 		EnabledCloudwatchLogsExports:     pulumi.ToStringArray(locals.AwsRdsInstance.Spec.EnabledCloudwatchLogsExports),
+		Username:                         pulumi.String(locals.AwsRdsInstance.Spec.Username),
 		Tags:                             pulumi.ToStringMap(locals.Labels),
 	}
 
@@ -81,9 +82,10 @@ func rdsInstance(ctx *pulumi.Context, locals *Locals, awsProvider *aws.Provider,
 		rdsInstanceArgs.AllocatedStorage = pulumi.Int(locals.AwsRdsInstance.Spec.AllocatedStorage)
 		if manageMasterUserPassword {
 			rdsInstanceArgs.ManageMasterUserPassword = pulumi.Bool(manageMasterUserPassword)
-			rdsInstanceArgs.MasterUserSecretKmsKeyId = pulumi.String(locals.AwsRdsInstance.Spec.MasterUserSecretKmsKeyId)
+			if locals.AwsRdsInstance.Spec.MasterUserSecretKmsKeyId != "" {
+				rdsInstanceArgs.MasterUserSecretKmsKeyId = pulumi.String(locals.AwsRdsInstance.Spec.MasterUserSecretKmsKeyId)
+			}
 		} else {
-			rdsInstanceArgs.Username = pulumi.String(locals.AwsRdsInstance.Spec.Username)
 			rdsInstanceArgs.Password = pulumi.String(locals.AwsRdsInstance.Spec.Password)
 		}
 	} else {
